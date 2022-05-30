@@ -19,6 +19,13 @@ async function main() {
 
   await simpleStorage.deployed()
 
+  //only verify on a testnet!
+  // if (network.config.chainId === 42 && process.env.ETHERSCAN_API_KEY) {
+  //   // 6 blocks is sort of a guess
+  //   await simpleStorage.deployTransaction.wait(6)
+  //   await verify(simpleStorage.address, [])
+  // }
+
   console.log("Greeter deployed to:", simpleStorage.address)
 
   let currentValue = await simpleStorage.retrieve()
@@ -30,6 +37,22 @@ async function main() {
   currentValue = await simpleStorage.retrieve()
   console.log(`Current value: ${currentValue}`)
 }
+
+// const verify = async (contractAddress: string, args: any[]) => {
+//   console.log("Verifying contract...")
+//   try {
+//     await run("verify:verify", {
+//       address: contractAddress,
+//       constructorArguments: args,
+//     })
+//   } catch (e: any) {
+//     if (e.message.toLowerCase().includes("already verified")) {
+//       console.log("Already verified!")
+//     } else {
+//       console.log(e)
+//     }
+//   }
+// }
 
 // We recommend this pattern to be able to use async/await everywhere
 // and properly handle errors.
